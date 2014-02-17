@@ -1,7 +1,7 @@
 Yet Another 4chan Thread Image Downloader (YANFTID)
 =======
 
-YANFTID is a command-only program that makes filling reaction folders easier. Part of [/g/'s Programming Projects for n00bz](https://github.com/keplr/programming-projects-for-n00bz)
+YANFTID is a command-only program that makes filling reaction folders easier. Part of [/g/'s Programming Projects for n00bz](https://github.com/keplr/programming-projects-for-n00bz).
  
 Usage
 ------
