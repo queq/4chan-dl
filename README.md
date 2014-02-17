@@ -5,6 +5,11 @@ YANFTID is a command-only program that makes filling reaction folders easier.
 
 Usage
 ------
+First of all, you should grant execute permission to the file:
+
+`$ cd /path/to/yanftid && chmod a+x yanftid`
+
+And you're ready to go!
 
 `$ ./yanftid -i <thread URL> -o <download path>`
 
