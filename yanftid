@@ -30,19 +30,17 @@ def main(argv):
 	try:
 		opts, args = getopt.getopt(argv,"hi:o:")
 	except getopt.GetoptError:
-		print './chan-img -i <thread URL> -o <download path>'
+		print './yanftid -i <thread URL> -o <download path>'
 		sys.exit(2)
 	for opt, arg in opts:
 		if opt == '-h':
-			print './chan-img -i <thread URL> -o <download path>'
+			print './yanftid -i <thread URL> -o <download path>'
 			sys.exit()
 		elif opt == '-i':
 			url = arg
 		elif opt == '-o':
 			path = arg
 	download(url,path)
-	# print 'URL is', url
-	# print 'Path is', path
 
 if __name__ == "__main__":
    main(sys.argv[1:])
