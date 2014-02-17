@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+import sys, getopt, urllib2, re, os
+from urlparse import urlsplit
+
+def download(url,path):
+	urlContent = urllib2.urlopen(url).read()
+	# HTML image tag: <a href="//i.4cdn.org/<board>/src/<filename>.<file-extension>">
+	imgUrls = re.findall('href="//i.4cdn.org/[a-z]{1,3}/src/[0-9]+.png"', urlContent)
+	imgUrls.extend(re.findall('href="//i.4cdn.org/[a-z]{1,3}/src/[0-9]+.jpg"', urlContent))
+	imgUrls.extend(re.findall('href="//i.4cdn.org/[a-z]{1,3}/src/[0-9]+.gif"', urlContent))
+	imgUrls = list(set(imgUrls))
+	print "Downloading %i images from %s" % (len(imgUrls), url)
+
+	for imgUrl in imgUrls:
+		try:
+			imgData = urllib2.urlopen("https:" + imgUrl[6:-1]).read()
+			fileName = os.path.basename(urlsplit(imgUrl[:-1])[2])
+			complete_path = os.path.join(path, fileName)
+			output = open(complete_path,'wb')
+			output.write(imgData)
+			output.close()
+		except:
+			pass
+	print "Download complete!"
+
+def main(argv):
+	url = ''
+	path = ''
+	try:
+		opts, args = getopt.getopt(argv,"hi:o:")
+	except getopt.GetoptError:
+		print './chan-img -i <thread URL> -o <download path>'
+		sys.exit(2)
+	for opt, arg in opts:
+		if opt == '-h':
+			print './chan-img -i <thread URL> -o <download path>'
+			sys.exit()
+		elif opt == '-i':
+			url = arg
+		elif opt == '-o':
+			path = arg
+	download(url,path)
+	# print 'URL is', url
+	# print 'Path is', path
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
