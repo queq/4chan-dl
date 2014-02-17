@@ -13,6 +13,12 @@ And you're ready to go!
 
 `$ ./yanftid -i <thread URL> -o <download path>`
 
+Protip:
+
+* Add this to your .bashrc: `export PATH=$PATH:/path/to/the/repo`
+* Run `$ source .bashrc` once
+* Launch it as simple as `$ yanftid -i <thread URL> -o <download path>` (no need to go to yanftid's folder again)
+
 
 TODO
 -----
