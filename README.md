@@ -2,7 +2,7 @@
 =======
 
 A command-line program that makes filling reaction folders easier. Part of [/g/'s Programming Projects for n00bz](https://github.com/keplr/programming-projects-for-n00bz).
-Warning: This is some kind of broken shit. Perhaps you won't like my coding.
+Warning: This is some kind of broken shit. You might not like my coding at all.
  
 Usage
 ------
@@ -18,7 +18,7 @@ Protip:
 
 * Add this to your .bashrc: `export PATH=$PATH:/path/to/the/repo`
 * Run `$ source .bashrc` once
-* Launch it as simple as `$ 4chan-dl -i <thread URL> -o <download path>` (no need to go to yanftid's folder again, or put the ./ thingie)
+* Launch it as simple as `$ 4chan-dl -i <thread URL> -o <download path>` (no need to go to the source folder again, or put the `./` thingie)
 
 
 CHANGES
