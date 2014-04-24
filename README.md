@@ -2,7 +2,8 @@
 =======
 
 A command-line program that makes filling reaction folders easier. Part of [/g/'s Programming Projects for n00bz](https://github.com/keplr/programming-projects-for-n00bz).
-Warning: This is some kind of broken shit. You might not like my coding at all.
+
+**Warning**: This is some kind of broken shit. You might not like my coding at all.
  
 Usage
 ------
