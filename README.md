@@ -2,6 +2,7 @@
 =======
 
 A command-line program that makes filling reaction folders easier. Part of [/g/'s Programming Projects for n00bz](https://github.com/keplr/programming-projects-for-n00bz).
+Warning: This is some kind of broken shit. Perhaps you won't like my coding.
  
 Usage
 ------
@@ -23,11 +24,16 @@ Protip:
 CHANGES
 -----
 
-* Moved to new namespaces.
+April 24th, 2014
+
+* Moved to new namespace.
+* Added prettier print messages. Now you can monitor the download's progress.
+* Exceptions aren't visible to the user now (404 in specific). Instead of that, a rather unintuitive message shows up.  
 
 TODO
 -----
 
-* Make a fancier interface (perhaps showing the thread's OP, or redirecting to archives in case of 404ing)
-* Show individual file and/or overall progress
-* Create a folder, named after thread number or OP (this would be nice if you want each thread to be in a different folder)
+* Fix exception handling: format messages according to the error, so the user knows what's wrong with his input.
+* Make a even fancier interface: perhaps showing the thread's OP, or redirecting to archives in case of 404ing (the latter couldn't be possible for archives that don't store images)
+* Improve individual file and/or overall progress
+* Create a folder, named after thread number or OP. This would be nice if you want each thread to be in a different folder
