@@ -28,7 +28,7 @@ CHANGES
 April 24th, 2014
 
 * Moved to new namespace.
-* Added prettier print messages. Now you can monitor the download's progress.
+* Added prettier print messages. Now you can monitor the download progress.
 * Exceptions aren't visible to the user now (404 in specific). Instead of that, a rather unintuitive message shows up.  
 
 TODO
