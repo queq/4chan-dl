@@ -13,7 +13,7 @@ def download(url, path):
         
         # Old HTML img tag: 
         # <a href="//i.4cdn.org/<board>/src/<filename>.<extension>">
-        #
+
         # New HTML img tag:
         # <a href="//i.4cdn.org/<board>/<filename>.<extension>"
         
