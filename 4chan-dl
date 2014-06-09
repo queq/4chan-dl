@@ -1,50 +1,75 @@
 #!/usr/bin/env python
 
-import sys, getopt, urllib2, re, os
+import sys
+import getopt
+import urllib2
+import re
+import os
 from urlparse import urlsplit
 
-def download(url,path):
-	try:
-		urlContent = urllib2.urlopen(url).read()
-		# Old HTML img tag: <a href="//i.4cdn.org/<board>/src/<filename>.<file-extension>">
-		# New HTML img tag: <a href="//i.4cdn.org/<board>/<filename>.<file-extension>">
-		imgUrls = re.findall('href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.png"', urlContent)
-		imgUrls.extend(re.findall('href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.jpg"', urlContent))
-		imgUrls.extend(re.findall('href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.gif"', urlContent))
-		imgUrls = list(set(imgUrls))
-		if len(imgUrls) == 1: print "There is %i image in %s" % (len(imgUrls), url)
-		else: print "There are %i images in %s" % (len(imgUrls), url) 
-		i = 0
-		for imgUrl in imgUrls:
-			i = i + 1
-			imgData = urllib2.urlopen("https:" + imgUrl[6:-1]).read()
-			fileName = os.path.basename(urlsplit(imgUrl[:-1])[2])
-			complete_path = os.path.join(path, fileName)
-			output = open(complete_path,'wb')
-			output.write(imgData)
-			output.close()
-			print "Downloaded image %i" % i
-		if i == len(imgUrls): print "Download complete!"
-	except:
-		print "Some weird error happened: 404'd thread or bad format. Check your source again."
+def download(url, path):
+    try:
+        page_content = urllib2.urlopen(url).read()
+        
+        # Old HTML img tag: 
+        # <a href="//i.4cdn.org/<board>/src/<filename>.<extension>">
+        #
+        # New HTML img tag:
+        # <a href="//i.4cdn.org/<board>/<filename>.<extension>"
+        
+        img_urls = re.findall(
+            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.png"', page_content
+            )
+        img_urls.extend(re.findall(
+            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.jpg"', page_content
+            ))
+        img_urls.extend(re.findall(
+            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.gif"', page_content
+            ))
+        img_urls = list(set(img_urls))
+
+        if len(img_urls) == 1:
+            print "There is %i image in %s" % (len(img_urls), url)
+        else:
+            print "There are %i images in %s" % (len(img_urls), url) 
+
+        i = 0
+        
+        for url in img_urls:
+            i = i + 1
+            
+            image = urllib2.urlopen("https:" + url[6:-1]).read()
+            fileName = os.path.basename(urlsplit(url[:-1])[2])
+            complete_path = os.path.join(path, fileName)
+            output = open(complete_path,'wb')
+            output.write(image)
+            output.close()
+            
+            print "Downloaded image %i" % i
+        if i == len(img_urls):
+            print "Download complete!"
+    except:
+        print "Error. Try again"
 
 def main(argv):
-	url = ''
-	path = ''
-	try:
-		opts, args = getopt.getopt(argv,"hi:o:")
-	except getopt.GetoptError:
-		print './4chan-dl -i <thread URL> -o <download path>'
-		sys.exit(2)
-	for opt, arg in opts:
-		if opt == '-h':
-			print './4chan-dl -i <thread URL> -o <download path>'
-			sys.exit()
-		elif opt == '-i':
-			url = arg
-		elif opt == '-o':
-			path = arg
-	download(url,path)
+    url = ''
+    path = ''
+    
+    try:
+        opts, args = getopt.getopt(argv, "hi:o:")
+    except getopt.GetoptError:
+        print './4chan-dl -i URL -o path'
+        sys.exit(2)
+    
+    for opt, arg in opts:
+        if opt == '-h':
+            print './4chan-dl -i URL -o path'
+            sys.exit()
+        elif opt == '-i':
+            url = arg
+        elif opt == '-o':
+            path = arg
+    download(url, path)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+    main(sys.argv[1:])
