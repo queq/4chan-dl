@@ -1,66 +1,84 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-import sys
 import getopt
-import urllib2
-import re
 import os
+import re
+import sys
+import urllib2
+
+from BeautifulSoup import BeautifulSoup
 from urlparse import urlsplit
 
-def download(url, path):
+def download(url, path, flag):
     try:
         page_content = urllib2.urlopen(url).read()
-        
-        # Old HTML img tag: 
+        soup = BeautifulSoup(page_content)
+        tags = soup.findAll('a')
+
+        # Old HTML img tag:
         # <a href="//i.4cdn.org/<board>/src/<filename>.<extension>">
 
         # New HTML img tag:
         # <a href="//i.4cdn.org/<board>/<filename>.<extension>"
-        
-        img_urls = re.findall(
-            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.png"', page_content
-            )
-        img_urls.extend(re.findall(
-            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.jpg"', page_content
-            ))
-        img_urls.extend(re.findall(
-            'href="//i.4cdn.org/[a-z]{1,3}/[0-9]+.gif"', page_content
-            ))
-        img_urls = list(set(img_urls))
 
-        if len(img_urls) == 1:
-            print "There is %i image in %s" % (len(img_urls), url)
+        patterns = [
+            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.jpg",
+            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.png",
+            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.gif",
+            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.webm"
+        ]
+
+        images = []
+        original_names = []
+
+        for tag in tags:
+            href = tag.get('href')
+            string = tag.string
+            if re.match(patterns[0], href) and string != None:
+                images.append(href)
+                original_names.append(string)
+            elif re.match(patterns[1], href) and string != None:
+                images.append(href)
+                original_names.append(string)
+            elif re.match(patterns[2], href) and string != None:
+                images.append(href)
+                original_names.append(string)
+            elif re.match(patterns[3], href) and string != None:
+                images.append(href)
+                original_names.append(string)
+
+        n = len(images)
+
+        if n == 1:
+            print "There is {} image in {}".format(n, url)
         else:
-            print "There are %i images in %s" % (len(img_urls), url) 
+            print "There are {} images in {}".format(n, url)
 
-        i = 0
-        
-        for url in img_urls:
-            i = i + 1
-            
-            image = urllib2.urlopen("https:" + url[6:-1]).read()
-            fileName = os.path.basename(urlsplit(url[:-1])[2])
-            complete_path = os.path.join(path, fileName)
+        for i in range(0, n):
+            image = urllib2.urlopen("https:" + images[i]).read()
+            if flag:
+                filename = original_names[i]
+            else:
+                filename = re.findall(r'[0-9]+.[a-z]{3,4}', urlsplit(images[i])[2])[0]
+            complete_path = os.path.join(path, filename)
             output = open(complete_path,'wb')
             output.write(image)
             output.close()
-            
-            print "Downloaded image %i" % i
-        if i == len(img_urls):
-            print "Download complete!"
+
+            print "Downloaded image {} of {}".format(i + 1, n)
+        print "Download complete!"
     except:
         print "Error. Try again"
 
 def main(argv):
-    url = ''
-    path = ''
-    
+    flag = False
     try:
-        opts, args = getopt.getopt(argv, "hi:o:")
+        opts, args = getopt.getopt(argv, "hi:o:k")
     except getopt.GetoptError:
-        print './4chan-dl -i URL -o path'
+        print './4chan-dl -i URL -o path [-k]'
         sys.exit(2)
-    
+
     for opt, arg in opts:
         if opt == '-h':
             print './4chan-dl -i URL -o path'
@@ -69,7 +87,12 @@ def main(argv):
             url = arg
         elif opt == '-o':
             path = arg
-    download(url, path)
+        elif opt == '-k':
+            flag = True
+        elif not (opt == '-k'):
+            flat = False
+
+    download(url, path, flag)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
