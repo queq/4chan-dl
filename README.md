@@ -15,15 +15,18 @@ And you're ready to go!
 
 `$ ./4chan-dl -i <thread URL> -o <download path>`
 
-Protip:
+If you want to keep the original name of the files:
 
-* Add this to your .bashrc: `export PATH=$PATH:/path/to/the/repo`
-* Run `$ source .bashrc` once
-* Launch it as simple as `$ 4chan-dl -i <thread URL> -o <download path>` (no need to go to the source folder again, or put the `./` thingie)
-
+`$ ./4chan-dl -i <thread URL> -o <download path> -k`
 
 CHANGES
 -----
+
+July 9th, 2014
+
+* Added .webm support
+* Added more bloat
+* Now it's possible to keep the original filename 
 
 April 24th, 2014
 
