@@ -5,6 +5,7 @@ import getopt
 import os
 import re
 import sys
+import traceback
 import urllib2
 
 from BeautifulSoup import BeautifulSoup
@@ -67,9 +68,11 @@ def download(url, path, flag):
             output.close()
 
             print "Downloaded image {} of {}".format(i + 1, n)
-        print "Download complete!"
-    except:
-        print "Error. Try again"
+        print "\nDownload complete!"
+#    except Exception, err:
+#        print traceback.format_exc()
+    except Exception as inst:
+        print "Error\n"+inst
 
 def main(argv):
     flag = False
