@@ -22,6 +22,10 @@ If you want to keep the original name of the files:
 CHANGES
 -----
 
+March 30th, 2015
+
+* Image fetching regex now is alphanumeric (before this, `4chan-dl` wouldn't work for r9k threads for example). Now it should work for any relevant board.
+
 July 9th, 2014
 
 * Added .webm support
