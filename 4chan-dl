@@ -23,11 +23,15 @@ def download(url, path, flag):
         # New HTML img tag:
         # <a href="//i.4cdn.org/<board>/<filename>.<extension>"
 
+
+        # TODO
+        # Get board from the link provided as input
+        # instead of that ugly regex
         patterns = [
-            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.jpg",
-            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.png",
-            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.gif",
-            "//i.4cdn.org/[a-z]{1,3}/[0-9]+.webm"
+            "//i.4cdn.org/[a-z0-9]{1,3}/[0-9]+.jpg",
+            "//i.4cdn.org/[a-z0-9]{1,3}/[0-9]+.png",
+            "//i.4cdn.org/[a-z0-9]{1,3}/[0-9]+.gif",
+            "//i.4cdn.org/[a-z0-9]{1,3}/[0-9]+.webm"
         ]
 
         images = []
