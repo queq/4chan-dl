@@ -7,13 +7,13 @@ import re
 import sys
 import traceback
 import urllib2
+import BeautifulSoup
 
-from BeautifulSoup import BeautifulSoup
 from urlparse import urlsplit
 
 def download(url, path, flag):
     try:
-        board = re.findall(r'\/[a-z0-9]{1,4}\/', url)[0]
+        board = re.findall(r'/[a-z0-9]{1,4}/', url)[0]
         page_content = urllib2.urlopen(url).read()
         soup = BeautifulSoup(page_content)
         tags = soup.findAll('a')
@@ -37,25 +37,17 @@ def download(url, path, flag):
         for tag in tags:
             href = tag.get('href')
             string = tag.string
-            if re.match(patterns[0], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[1], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[2], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[3], href) and string != None:
-                images.append(href)
-                original_names.append(string)
+            for pattern in patterns:
+                if re.match(pattern, href) and string is not None:
+                    images.append(href)
+                    original_names.append(string)S
 
         n = len(images)
 
         if n == 1:
-            print "There is {} image in {}".format(n, url)
+            print "There is {} file in {}".format(n, url)
         else:
-            print "There are {} images in {}".format(n, url)
+            print "There are {} files in {}".format(n, url)
 
         for i in range(0, n):
             image = urllib2.urlopen("https:" + images[i]).read()
@@ -73,7 +65,7 @@ def download(url, path, flag):
 #    except Exception, err:
 #        print traceback.format_exc()
     except Exception as inst:
-        print "Error\n"+inst
+        print "Error\n" + inst
 
 def main(argv):
     flag = False
