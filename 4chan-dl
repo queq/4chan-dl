@@ -5,11 +5,12 @@ import getopt
 import os
 import re
 import sys
-import traceback
 import urllib2
 import BeautifulSoup
+# import traceback
 
 from urlparse import urlsplit
+
 
 def download(url, path, flag):
     try:
@@ -40,14 +41,11 @@ def download(url, path, flag):
             for pattern in patterns:
                 if re.match(pattern, href) and string is not None:
                     images.append(href)
-                    original_names.append(string)S
+                    original_names.append(string)
 
         n = len(images)
 
-        if n == 1:
-            print "There is {} file in {}".format(n, url)
-        else:
-            print "There are {} files in {}".format(n, url)
+        print "There are {} files in {}".format(n, url)
 
         for i in range(0, n):
             image = urllib2.urlopen("https:" + images[i]).read()
@@ -56,7 +54,7 @@ def download(url, path, flag):
             else:
                 filename = re.findall(r'[0-9]+.[a-z]{3,4}', urlsplit(images[i])[2])[0]
             complete_path = os.path.join(path, filename)
-            output = open(complete_path,'wb')
+            output = open(complete_path, 'wb')
             output.write(image)
             output.close()
 
@@ -67,10 +65,11 @@ def download(url, path, flag):
     except Exception as inst:
         print "Error\n" + inst
 
+
 def main(argv):
     flag = False
     try:
-        opts, args = getopt.getopt(argv, "hi:o:k")
+        opts = getopt.getopt(argv, "hi:o:k")
     except getopt.GetoptError:
         print './4chan-dl -i URL -o path [-k]'
         sys.exit(2)
@@ -86,7 +85,7 @@ def main(argv):
         elif opt == '-k':
             flag = True
         elif not (opt == '-k'):
-            flat = False
+            flag = False
 
     download(url, path, flag)
 
