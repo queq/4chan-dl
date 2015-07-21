@@ -39,8 +39,8 @@ def download(url, path, flag):
             string = tag.string
             for pattern in patterns:
                 if re.match(pattern, href) and string is not None:
-                images.append(href)
-                original_names.append(string)
+                    images.append(href)
+                    original_names.append(string)
 
         n = len(images)
 
