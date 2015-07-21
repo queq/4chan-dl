@@ -5,11 +5,11 @@ import getopt
 import os
 import re
 import sys
-import traceback
 import urllib2
 
 from BeautifulSoup import BeautifulSoup
 from urlparse import urlsplit
+
 
 def download(url, path, flag):
     try:
@@ -37,16 +37,8 @@ def download(url, path, flag):
         for tag in tags:
             href = tag.get('href')
             string = tag.string
-            if re.match(patterns[0], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[1], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[2], href) and string != None:
-                images.append(href)
-                original_names.append(string)
-            elif re.match(patterns[3], href) and string != None:
+            for pattern in patterns:
+                if re.match(pattern, href) and string is not None:
                 images.append(href)
                 original_names.append(string)
 
