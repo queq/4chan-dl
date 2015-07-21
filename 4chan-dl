@@ -9,6 +9,7 @@ import urllib2
 import BeautifulSoup
 from urlparse import urlsplit
 
+
 def download(url, path, flag):
     try:
         board = re.findall(r'/[a-z0-9]{1,4}/', url)[0]
@@ -54,6 +55,7 @@ def download(url, path, flag):
             print "Downloaded image {} of {}".format(i + 1, n)
         print "\nDownload complete!"
 
+
 def main(argv):
     try:
         opts, args = getopt.getopt(argv, "hi:o:k")
@@ -74,7 +76,7 @@ def main(argv):
         elif not (opt == '-k'):
             flag = False
 
-    download(url, path, flag)
+        download(url, path, flag)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
