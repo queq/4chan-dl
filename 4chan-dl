@@ -18,11 +18,10 @@ def download(url, path, flag):
         soup = BeautifulSoup(page_content)
         tags = soup.findAll('a')
 
-        # Old HTML img tag:
-        # <a href="//i.4cdn.org/<board>/src/<filename>.<extension>">
-
-        # New HTML img tag:
-        # <a href="//i.4cdn.org/<board>/<filename>.<extension>"
+        # Old HTML img address:
+        # //i.4cdn.org/<board>/src/<filename>.<extension>
+        # New HTML img address:
+        # //i.4cdn.org/<board>/<filename>.<extension>
 
         patterns = [
             "//i.4cdn.org"+board+"[0-9]+.jpg",
@@ -30,7 +29,6 @@ def download(url, path, flag):
             "//i.4cdn.org"+board+"[0-9]+.gif",
             "//i.4cdn.org"+board+"[0-9]+.webm"
         ]
-
         images = []
         original_names = []
 
@@ -41,8 +39,8 @@ def download(url, path, flag):
                 if re.match(pattern, href) and string is not None:
                     images.append(href)
                     original_names.append(string)
-        n = len(images)
 
+        n = len(images)
         print "There are {} files in {}".format(n, url)
 
         for i in range(0, n):
@@ -55,17 +53,11 @@ def download(url, path, flag):
             output = open(complete_path, 'wb')
             output.write(image)
             output.close()
-
             print "Downloaded image {} of {}".format(i + 1, n)
         print "\nDownload complete!"
-#    except Exception, err:
-#        print traceback.format_exc()
-#    except:
-#        print "Error\n", sys.exc_info()[0]
 
 
 def main(argv):
-    flag = False
     try:
         opts, args = getopt.getopt(argv, "hi:o:k")
     except getopt.GetoptError:
