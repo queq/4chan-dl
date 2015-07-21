@@ -7,9 +7,7 @@ import re
 import sys
 import urllib2
 import BeautifulSoup
-# import traceback
 from urlparse import urlsplit
-
 
 def download(url, path, flag):
     try:
@@ -55,7 +53,6 @@ def download(url, path, flag):
             output.close()
             print "Downloaded image {} of {}".format(i + 1, n)
         print "\nDownload complete!"
-
 
 def main(argv):
     try:
