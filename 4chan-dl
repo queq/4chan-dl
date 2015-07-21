@@ -7,8 +7,7 @@ import re
 import sys
 import urllib2
 import BeautifulSoup
-import traceback
-
+# import traceback
 from urlparse import urlsplit
 
 
@@ -62,8 +61,8 @@ def download(url, path, flag):
         print "\nDownload complete!"
 #    except Exception, err:
 #        print traceback.format_exc()
-    except Exception as inst:
-        print "Error\n" + inst
+    except:
+        print "Error\n", sys.exc_info()[0]
 
 
 def main(argv):
