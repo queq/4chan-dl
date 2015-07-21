@@ -65,6 +65,7 @@ def download(url, path, flag):
 
 
 def main(argv):
+    flag = False
     try:
         opts, args = getopt.getopt(argv, "hi:o:k")
     except getopt.GetoptError:
@@ -81,8 +82,6 @@ def main(argv):
             path = arg
         elif opt == '-k':
             flag = True
-        elif not (opt == '-k'):
-            flag = False
 
     download(url, path, flag)
 
