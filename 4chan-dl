@@ -50,7 +50,8 @@ def download(url, path, flag):
             if flag:
                 filename = original_names[i]
             else:
-                filename = re.findall(r'[0-9]+.[a-z]{3,4}', urlsplit(images[i])[2])[0]
+                filename = re.findall(r'[0-9]+.[a-z]{3,4}',
+                                      urlsplit(images[i])[2])[0]
             complete_path = os.path.join(path, filename)
             output = open(complete_path, 'wb')
             output.write(image)
