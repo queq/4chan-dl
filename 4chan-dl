@@ -41,7 +41,6 @@ def download(url, path, flag):
                 if re.match(pattern, href) and string is not None:
                     images.append(href)
                     original_names.append(string)
-
         n = len(images)
 
         print "There are {} files in {}".format(n, url)
@@ -61,8 +60,8 @@ def download(url, path, flag):
         print "\nDownload complete!"
 #    except Exception, err:
 #        print traceback.format_exc()
-    except:
-        print "Error\n", sys.exc_info()[0]
+#    except:
+#        print "Error\n", sys.exc_info()[0]
 
 
 def main(argv):
