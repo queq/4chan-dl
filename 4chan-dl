@@ -69,7 +69,7 @@ def download(url, path, flag):
 def main(argv):
     flag = False
     try:
-        opts = getopt.getopt(argv, "hi:o:k")
+        opts, args = getopt.getopt(argv, "hi:o:k")
     except getopt.GetoptError:
         print './4chan-dl -i URL -o path [-k]'
         sys.exit(2)
