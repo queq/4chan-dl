@@ -26,6 +26,10 @@ If you want to keep the original name of the files:
 CHANGES
 -----
 
+June 18th, 2016
+
+* I haven't used this script for a while, until now. Looks like 4chan threw 403 Error to this script when it tried to access threads (thanks, Hiro). This was duly fixed.
+
 March 30th, 2015
 
 * Image fetching regex now is alphanumeric (before this, `4chan-dl` wouldn't work for r9k threads for example). Now it should work for any relevant board.
@@ -34,7 +38,7 @@ July 9th, 2014
 
 * Added .webm support
 * Added more bloat
-* Now it's possible to keep the original filename 
+* Now it's possible to keep the original filename
 
 April 24th, 2014
 
@@ -44,7 +48,7 @@ April 24th, 2014
 
 TODO
 -----
-
+* (Soon, I expect) *Use a decent arg parsing method*
 * Fix exception handling: format messages according to the error, so the user knows what's wrong with his input.
 * Make a even fancier interface: perhaps showing the thread's OP, or redirecting to archives in case of 404ing (the latter couldn't be possible for archives that don't store images)
 * Improve individual file and/or overall progress

@@ -10,11 +10,15 @@ import urllib2
 from BeautifulSoup import BeautifulSoup
 from urlparse import urlsplit
 
+headers = {'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'}
 
 def download(url, path, flag):
     try:
         board = re.findall(r'\/[a-z0-9]{1,4}\/', url)[0]
-        page_content = urllib2.urlopen(url).read()
+        request = urllib2.Request(url, None, headers)
+        response = urllib2.urlopen(request)
+        page_content = response.read()
+        # page_content = urllib2.urlopen(url).read()
         soup = BeautifulSoup(page_content)
         tags = soup.findAll('a')
 
@@ -59,10 +63,9 @@ def download(url, path, flag):
 
             print "Downloaded image {} of {}".format(i + 1, n)
         print "\nDownload complete!"
-#    except Exception, err:
-#        print traceback.format_exc()
+
     except Exception as inst:
-        print "Error\n"+inst
+        print "Error\n" + str(inst)
 
 
 def main(argv):
