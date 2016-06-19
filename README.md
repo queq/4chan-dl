@@ -49,6 +49,7 @@ April 24th, 2014
 TODO
 -----
 * **(Soon, I expect) Use a decent arg parsing method**
+* **(Soon, I expect) Use a decent progressbar method**
 * Fix exception handling: format messages according to the error, so the user knows what's wrong with his input.
 * Make a even fancier interface: perhaps showing the thread's OP, or redirecting to archives in case of 404ing (the latter couldn't be possible for archives that don't store images)
 * Improve individual file and/or overall progress
